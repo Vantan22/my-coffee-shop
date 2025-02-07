@@ -1,12 +1,13 @@
-const express = require("express");
+const express = require('express');
 const cors = require('cors');
-const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
+const connectDB = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const ingredientRoutes = require('./routes/ingredientRoutes');
 // const coffeeRoutes = require("./routes/coffeeRoutes");
 
 // Kết nối MongoDB
 connectDB();
-
 
 const app = express();
 const PORT = 3000;
@@ -23,7 +24,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/auth", authRoutes);
+app.use('/auth', authRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/ingredients', ingredientRoutes);
 // app.use("/coffees", coffeeRoutes);
 
 // Start server

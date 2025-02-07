@@ -1,61 +1,23 @@
-import { useState, useEffect } from 'react';
-import { Layout, Menu, Button, Avatar, Dropdown, theme } from 'antd';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Avatar, Button, Dropdown, Layout, theme } from 'antd';
+import { Outlet, useNavigate } from 'react-router-dom';
 import {
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  DashboardOutlined,
-  ClockCircleOutlined,
-  DollarOutlined,
-  UserOutlined,
-  LogoutOutlined,
   SettingOutlined,
-  ProjectOutlined,
-  ScheduleOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { useAuth } from '@/hooks/useAuth';
+import { MenuItem } from '@/components/menu/MenuItem.jsx'; // import { images } from "@/assets/index";
 // import { images } from "@/assets/index";
 
 const { Header, Sider, Content } = Layout;
-
-const menuItems = [
-  {
-    key: 'dashboard',
-    icon: <DashboardOutlined />,
-    label: 'Tổng quan',
-    path: '/dashboard',
-  },
-  {
-    key: 'projects',
-    icon: <ProjectOutlined />,
-    label: 'Dự án',
-    path: '/projects',
-  },
-  {
-    key: 'tasks',
-    icon: <ScheduleOutlined />,
-    label: 'Công việc',
-    path: '/tasks',
-  },
-  {
-    key: 'timesheet',
-    icon: <ClockCircleOutlined />,
-    label: 'Chấm công',
-    path: '/timesheet',
-  },
-  {
-    key: 'income',
-    icon: <DollarOutlined />,
-    label: 'Thu nhập',
-    path: '/income',
-  },
-];
 
 export const MainLayout = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
   const { logout, user } = useAuth();
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -91,13 +53,6 @@ export const MainLayout = () => {
     },
   ];
 
-  const handleMenuClick = ({ key }) => {
-    const menuItem = menuItems.find((item) => item.key === key);
-    if (menuItem) {
-      navigate(menuItem.path);
-    }
-  };
-
   const handleUserMenuClick = async ({ key }) => {
     if (key === 'logout') {
       try {
@@ -112,10 +67,6 @@ export const MainLayout = () => {
       navigate('/settings');
     }
   };
-
-  const selectedKeys = menuItems
-    .filter((item) => location.pathname.startsWith(item.path))
-    .map((item) => item.key);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -155,15 +106,10 @@ export const MainLayout = () => {
               fontWeight: 'bold',
             }}
           >
-            ChronoPay
+            Go Caphe
           </span>
         </div>
-        <Menu
-          mode="inline"
-          selectedKeys={selectedKeys}
-          items={menuItems}
-          onClick={handleMenuClick}
-        />
+        <MenuItem />
       </Sider>
       <Layout>
         <Header
@@ -222,8 +168,8 @@ export const MainLayout = () => {
         <Content
           style={{
             margin: isMobile ? '16px' : '24px',
-            padding: 24,
-            background: colorBgContainer,
+            // padding: 24,
+            // background: colorBgContainer,
             borderRadius: borderRadiusLG,
             minHeight: 280,
             overflowX: 'auto',

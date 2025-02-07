@@ -1,5 +1,5 @@
 # Sử dụng image Node.js làm base image
-FROM node:14-alpine
+FROM node:23.6.0-alpine
 
 # Thiết lập thư mục làm việc trong container
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Chạy server
-CMD ["node", "index.js"]
+CMD ["npm", "run", "start"]
